@@ -57,7 +57,6 @@ public class TimeTaker : MonoBehaviour
         if (timerStart)
         {
             leaderboard.SaveEntry("Placeholder",mapTime);
-            leaderboard.UpdateLeaderboardText();
             UpdateFinishText();
         }
         
