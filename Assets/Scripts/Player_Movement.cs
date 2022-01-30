@@ -19,7 +19,10 @@ public class Player_Movement : MonoBehaviour
 
     private void Start()
     {
-        timeTaker = gameManager.GetComponent<TimeTaker>();
+        if (gameManager != null)
+        {
+            timeTaker = gameManager.GetComponent<TimeTaker>();
+        }
     }
 
     // Update is called once per frame
@@ -63,6 +66,10 @@ public class Player_Movement : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        if (timeTaker == null)
+        {
+            return;
+        }
         switch (other.tag)
         {
             case "Start":
