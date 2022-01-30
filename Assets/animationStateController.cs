@@ -7,6 +7,7 @@ public class animationStateController : MonoBehaviour
     private Animator animator;
 
     private int isRunningHash;
+    private int isRunningBackHash;
     private int isSneakingHash;
     private int isJumpingHash;
     // Start is called before the first frame update
@@ -14,6 +15,7 @@ public class animationStateController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         isRunningHash = Animator.StringToHash("isRunning");
+        isRunningBackHash = Animator.StringToHash("isRunningBack");
         isSneakingHash = Animator.StringToHash("isSneaking");
         isJumpingHash = Animator.StringToHash("isJumping");
     }
@@ -22,26 +24,40 @@ public class animationStateController : MonoBehaviour
     void Update()
     {
         bool isRunning = animator.GetBool("isRunning");
-        bool fowardPressed = Input.GetKey("w");
+        bool isRunningBack = animator.GetBool("isRunningBack");
+        bool forwardPressed = Input.GetKey("w");
+        bool backwardPressed = Input.GetKey("s");
         bool sneakPressed = Input.GetKey("left shift");
-        bool jumpPressed = Input.GetKey("space");
+        bool jumpPressed = Input.GetKeyDown("space");
         
-        if (!isRunning && fowardPressed)
+        //running forward
+        if (!isRunning && forwardPressed)
         {
             animator.SetBool(isRunningHash, true);
         }
-        if (isRunning && !fowardPressed)
+        if (isRunning && !forwardPressed)
         {
             animator.SetBool(isRunningHash, false);
         }
-        if (fowardPressed && sneakPressed)
+        //running backwards
+        if (!isRunningBack && backwardPressed)
+        {
+            animator.SetBool(isRunningBackHash, true);
+        }
+        if (isRunningBack && !backwardPressed)
+        {
+            animator.SetBool(isRunningBackHash, false);
+        }
+        //sneaking
+        if (forwardPressed && sneakPressed)
         {
             animator.SetBool(isSneakingHash, true);
         }
-        if (fowardPressed && !sneakPressed)
+        if (forwardPressed && !sneakPressed)
         {
             animator.SetBool(isSneakingHash, false);
         }
+        //jumping
         if (jumpPressed)
         {
             animator.SetBool(isJumpingHash, true);
