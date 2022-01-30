@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Player_Movement : MonoBehaviour
 {
-    public Animation animation;
     public CharacterController controller;
     public GameObject turner;
     public GameObject model;
@@ -39,12 +38,6 @@ public class Player_Movement : MonoBehaviour
         //Movement
         Vector3 move = turner.transform.right * moveX + turner.transform.forward * moveZ;
         controller.Move(move * (moveSpeed * Time.deltaTime));
-        if (Input.GetAxis("Vertical") > 0.05f){
-            animation.Play("Running");
-
-        }else{
-            animation.Play("Idle");
-        }
 
 
         //Jumping
