@@ -1,61 +1,51 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TimeTaker : MonoBehaviour
 {
     private float mapTime = 0;
     private bool timerStart = false;
-    private string highscoreString;
-    private int minutes;
+    private Leaderboard.Leaderboard leaderboard;
     
-    public GameObject finishGame;
-    public Text timeDisplay;
-    
+    [SerializeField] private GameObject finishGame;
+    [SerializeField] private Text timeDisplay, finishText;
+
+    public float HighScore { get; private set; }
+
 
     private void Start()
     {
-        minutes = 0;
-        highscoreString = SceneManager.GetActiveScene().name;
-        if (PlayerPrefs.GetFloat(highscoreString) <= 1f)
-        {
-            PlayerPrefs.SetFloat(highscoreString, 999999f);
-        }
+        
+        leaderboard = this.GetComponent<Leaderboard.Leaderboard>();
+        mapTime = 0;
+        HighScore = leaderboard.GetLevelHighScore();
     }
-
-    private void OnTriggerExit(Collider other)
-    {
-        switch (this.tag)
-        {
-            case "Start":
-                RestartTimer();
-                Debug.Log(PlayerPrefs.GetFloat(highscoreString));
-                Debug.Log(highscoreString);
-                break;
-            case "Finish":
-                StopTimer();
-                finishGame.SetActive(true);
-                Time.timeScale = 0f;
-                break;
-        }
-    }
-
+    
     private void Update()
     {
-        if (timerStart)
-        {
-            // mapTime is in seconds
-            // deltaTime simulates 100 frames per second
-            // meaning mapTime is increment 100 times per second by 0.01
-            mapTime += Time.deltaTime;
-            minutes = Mathf.FloorToInt(mapTime / 60);
-                timeDisplay.text = "Time: " + (minutes).ToString("F0") + ":" + (mapTime%60<10?"0":"") +(mapTime%60).ToString("F2");
-        }
+        if (!timerStart) return;
+        // mapTime is in seconds
+        // deltaTime simulates 100 frames per second
+        // meaning mapTime is increment 100 times per second by 0.01
+        mapTime += Time.deltaTime;
+        timeDisplay.text = FormatTime(mapTime);
     }
 
+    #region Starting_and_Stopping
+
+    public void StartPassed()
+    {
+        RestartTimer();
+    }
+
+    public void FinishPassed()
+    {
+        StopTimer();
+        finishGame.SetActive(true);
+        Time.timeScale = 0f;
+    }
+    
     private void RestartTimer()
     {
         mapTime = 0;
@@ -64,26 +54,37 @@ public class TimeTaker : MonoBehaviour
 
     private void StopTimer()
     {
-        timerStart = false;
-        // ToString("F1") cuts anything after the 1st decimal value off
-        if (mapTime < PlayerPrefs.GetFloat(highscoreString))
+        if (timerStart)
         {
-            PlayerPrefs.SetFloat(highscoreString, mapTime);
+            leaderboard.SaveEntry("Placeholder",mapTime);
+            leaderboard.UpdateLeaderboardText();
+            UpdateFinishText();
         }
+        
+        timerStart = false;
     }
 
-    public void ResetHighScore()
+    #endregion
+
+    #region FinishDisplay
+
+    private void UpdateFinishText()
     {
-        PlayerPrefs.SetFloat(highscoreString, 999999f);
+        finishText.text = "Your Time: " + FormatTime(mapTime) +"\nHigh Score: " + FormatTime(HighScore);
     }
+
+    #endregion
 
     public float GetMapTime()
     {
         return mapTime;
     }
-
-    public float GetHighscore()
+    
+    public static string FormatTime(float time)
     {
-        return PlayerPrefs.GetFloat(highscoreString);
+        var minutes=Mathf.Floor(time/60);
+        var seconds = Mathf.Floor(time % 60);
+        var milliseconds = (time * 1000) % 1000;
+        return $"{minutes:00}:{seconds:00}.{milliseconds:000}";
     }
 }

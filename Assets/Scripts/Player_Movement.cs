@@ -12,9 +12,16 @@ public class Player_Movement : MonoBehaviour
     public float moveSpeed = 12f;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
+    [SerializeField] private GameObject gameManager;
 
-    Vector3 velocity;
-    bool isGrounded = true;
+    private TimeTaker timeTaker;
+    private Vector3 velocity;
+    private bool isGrounded = true;
+
+    private void Start()
+    {
+        timeTaker = gameManager.GetComponent<TimeTaker>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -59,5 +66,18 @@ public class Player_Movement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
         
         model.transform.rotation = Quaternion.Euler(turner.transform.eulerAngles.x,turner.transform.eulerAngles.y-90,turner.transform.eulerAngles.z-83);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        switch (other.tag)
+        {
+            case "Start":
+                timeTaker.StartPassed();
+                break;
+            case "Finish":
+                timeTaker.FinishPassed();
+                break;
+        }
     }
 }
