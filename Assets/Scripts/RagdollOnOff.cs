@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class RagdollOnOff : MonoBehaviour
 {
-    public BoxCollider mainCollider;
-    public GameObject playerRig;
+    [SerializeField]
+    private BoxCollider mainCollider;
+    [SerializeField]
+    private GameObject playerRig;
 
     void Start()
     {
         getRagdollBits();
-        RagdollModeOff();
+        RagdollModeOn();
+        //RagdollModeOff();
     }
 
     // Update is called once per frame
