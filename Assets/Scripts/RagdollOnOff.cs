@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class RagdollOnOff : MonoBehaviour
 {
@@ -8,23 +8,53 @@ public class RagdollOnOff : MonoBehaviour
     private BoxCollider mainCollider;
     [SerializeField]
     private GameObject playerRig;
+    [SerializeField]
+    private Animator playerAnimator;
+
+    [SerializeField]
+    private CinemachineFreeLook camFreeLook;
+    [SerializeField]
+    private Transform newLookPoint;
+
+    [SerializeField]
+    private Moving_Kyle moving_Kyle;
 
     void Start()
     {
         getRagdollBits();
-        RagdollModeOn();
+        RagdollModeOff();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKey(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        if(Input.GetKey(KeyCode.X))
+        {
+            RagdollModeOn();
+            lockOnPlayer();
+        }
     }
 
     private void OnCollisionEnter(Collision activator) {
+
         if(activator.gameObject.tag == "Activator"){
             RagdollModeOn();
+            lockOnPlayer();
         }
+    }
+
+    private void OnTriggerEnter(Collider other) {
+
+        if(other.gameObject.tag == "LAZORS"){
+            RagdollModeOn();
+        }
+        lockOnPlayer();
+        
     }
 
     Collider [] ragdollColliders;
@@ -35,6 +65,9 @@ public class RagdollOnOff : MonoBehaviour
     }
 
     void RagdollModeOn(){
+        Debug.Log("DEAD");
+
+        playerAnimator.enabled = false;
 
         foreach(Collider col in ragdollColliders){
             col.enabled = true;
@@ -43,12 +76,13 @@ public class RagdollOnOff : MonoBehaviour
         foreach(Rigidbody rigid in limbsRigidbody){
             rigid.isKinematic = false;
         }
-    
+
         mainCollider.enabled = false;
-        GetComponent<Rigidbody>().isKinematic = false;
+        mainCollider.gameObject.GetComponent<Rigidbody>().isKinematic = true;
     }
 
     void RagdollModeOff(){
+        Debug.Log("ALIVE");
         foreach(Collider col in ragdollColliders){
             col.enabled = false;
         }
@@ -57,7 +91,14 @@ public class RagdollOnOff : MonoBehaviour
             rigid.isKinematic = true;
         }
 
+        playerAnimator.enabled = true;
         mainCollider.enabled = true;
-        GetComponent<Rigidbody>().isKinematic = true;
+        mainCollider.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+    }
+
+    void lockOnPlayer(){
+        camFreeLook.Follow = newLookPoint;
+        camFreeLook.LookAt = newLookPoint;
+        moving_Kyle.enabled = false;
     }
 }
