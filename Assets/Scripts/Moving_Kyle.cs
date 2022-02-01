@@ -23,14 +23,10 @@ public class Moving_Kyle : MonoBehaviour
     private Vector3 jumpVelocity;
     private bool isGrounded;
 
-    [SerializeField]
-    private RagdollOnOff ragdoll;
-
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        ragdoll.GetComponent<RagdollOnOff>();
     }
 
     // Update is called once per frame
@@ -68,10 +64,6 @@ public class Moving_Kyle : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.R)){
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-
-        if(Input.GetKeyDown(KeyCode.X)){
-            ragdoll.enabled = true;
         }
 
         // Movement

@@ -13,7 +13,6 @@ public class RagdollOnOff : MonoBehaviour
     {
         getRagdollBits();
         RagdollModeOn();
-        //RagdollModeOff();
     }
 
     // Update is called once per frame
