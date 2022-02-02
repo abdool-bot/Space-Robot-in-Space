@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,6 +23,7 @@ public class Moving_Kyle : MonoBehaviour
     // Variables for jumping
     private Vector3 jumpVelocity;
     private bool isGrounded;
+    private Quaternion rotationWhenStanding = Quaternion.identity;
 
     // Start is called before the first frame update
     void Start()
@@ -74,10 +76,15 @@ public class Moving_Kyle : MonoBehaviour
         jumpVelocity.y += gravity * Time.deltaTime;
         cc.Move(jumpVelocity * Time.deltaTime);
 
-        playerModel.transform.rotation = Quaternion.Euler(1- cameraRotation.transform.eulerAngles.x, cameraRotation.transform.eulerAngles.y, cameraRotation.transform.eulerAngles.z);
+        if (moveHortizonal == 0 && moveVertical == 0)
+        {
+            playerModel.transform.rotation = rotationWhenStanding;
+            return;
+        }
 
+        var cameraEuler = cameraRotation.transform.eulerAngles;
+        playerModel.transform.rotation = Quaternion.Euler(1- cameraEuler.x, cameraEuler.y, cameraEuler.z);
 
-
-
+        rotationWhenStanding = playerModel.transform.rotation;
     }
 }
