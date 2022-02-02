@@ -19,6 +19,16 @@ public class RagdollOnOff : MonoBehaviour
     [SerializeField]
     private Moving_Kyle moving_Kyle;
 
+    [SerializeField]
+    private Transform playerModel;
+    [SerializeField]
+    private Transform smasherTransform;
+    [SerializeField]
+    private Transform laserHall;
+
+    Collider [] ragdollColliders;
+    Rigidbody [] limbsRigidbody;
+
     void Start()
     {
         getRagdollBits();
@@ -45,6 +55,10 @@ public class RagdollOnOff : MonoBehaviour
         if(activator.gameObject.tag == "Activator"){
             RagdollModeOn();
             lockOnPlayer();
+
+            foreach(Rigidbody rigid in limbsRigidbody){
+                rigid.AddForce((-playerRig.transform.position - smasherTransform.transform.position) * 5, ForceMode.VelocityChange);
+            }
         }
     }
 
@@ -52,13 +66,15 @@ public class RagdollOnOff : MonoBehaviour
 
         if(other.gameObject.tag == "LAZORS"){
             RagdollModeOn();
+            lockOnPlayer();
         }
-        lockOnPlayer();
+        
+        foreach(Rigidbody rigid in limbsRigidbody){
+                rigid.AddForce((playerModel.transform.position - laserHall.transform.position) * 1000);
+        }
         
     }
-
-    Collider [] ragdollColliders;
-    Rigidbody [] limbsRigidbody;
+    
     void getRagdollBits(){
         ragdollColliders = playerRig.GetComponentsInChildren<Collider>();
         limbsRigidbody = playerRig.GetComponentsInChildren<Rigidbody>();
