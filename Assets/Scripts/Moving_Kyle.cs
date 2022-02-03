@@ -19,6 +19,8 @@ public class Moving_Kyle : MonoBehaviour
     private float gravity = -9.81f;
     [SerializeField]
     private float jumpHeight = 2.5f;
+
+    private float inGameMovementSpeed;
     
     // Variables for jumping
     private Vector3 jumpVelocity;
@@ -29,6 +31,7 @@ public class Moving_Kyle : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+         inGameMovementSpeed = movementSpeed;
     }
 
     // Update is called once per frame
@@ -51,12 +54,12 @@ public class Moving_Kyle : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.LeftShift))
         {
-            movementSpeed = movementSpeed / 4;
+            inGameMovementSpeed = movementSpeed / 4;
         }
 
         if(Input.GetKeyUp(KeyCode.LeftShift))
         {
-            movementSpeed = 8;
+            inGameMovementSpeed = movementSpeed;
         }
 
         if(Input.GetKeyDown(KeyCode.Space) && isGrounded){
@@ -70,7 +73,7 @@ public class Moving_Kyle : MonoBehaviour
 
         // Movement
         Vector3 move = cameraRotation.transform.right * moveHortizonal + cameraRotation.transform.forward * moveVertical;
-        cc.Move(move * (movementSpeed * Time.deltaTime));
+        cc.Move(move * (inGameMovementSpeed * Time.deltaTime));
 
         // Gravity
         jumpVelocity.y += gravity * Time.deltaTime;
