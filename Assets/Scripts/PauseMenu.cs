@@ -1,14 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject Menu, OptionsMenu;
-    public static bool GameisPaused = false;
-    public AudioMixer audioMixer;
+    [SerializeField] private GameObject Menu;
+    [SerializeField] private TMP_Dropdown resolutionDropdown;
+    [SerializeField] private AudioMixer musicMixer;
+    [SerializeField] private AudioMixer sfxMixer;
+    
+    public GameObject optionsmenu;
+    private static bool gameisPaused = false;
+    private Resolution[] resolutions;
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +22,29 @@ public class PauseMenu : MonoBehaviour
         if(this.tag != "MainMenu")
         {
             Menu.SetActive(false);
-        }     
+        }   
+        resolutions = Screen.resolutions;
+        resolutionDropdown.ClearOptions();
+        
+        List<string> options = new List<string>();
+
+        int currentResolutionIndex = 0;
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            string option = resolutions[i].width + " x " + resolutions[i].height;
+            options.Add(option);
+
+            if (resolutions[i].width == Screen.currentResolution.width &&
+                resolutions[i].height == Screen.currentResolution.height)
+            {
+                currentResolutionIndex = i;
+            }
+        }
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
+
+        optionsmenu = this.transform.Find("OptionsMenu").gameObject;
     }
 
     // Update is called once per frame
@@ -24,20 +52,24 @@ public class PauseMenu : MonoBehaviour
     {
         if (this.tag != "MainMenu")
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (!optionsmenu.activeSelf)
             {
-                if (GameisPaused)
+                if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    Return();
+                    if (gameisPaused)
+                    {
+                        Return();
+                    }
+                    else
+                    {
+                        Pause();
+                    }
                 }
-                else
+
+                if (Input.GetKeyDown(KeyCode.R))
                 {
-                    Pause();
+                    Restart();
                 }
-            }
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                Restart();
             }
         } 
     }
@@ -45,9 +77,9 @@ public class PauseMenu : MonoBehaviour
     public void Return()
     {
         Menu.SetActive(false);
-        OptionsMenu.SetActive(false);
+        optionsmenu.SetActive(false);
         Time.timeScale = 1f;
-        GameisPaused = false;
+        gameisPaused = false;
         Cursor.lockState = CursorLockMode.Locked; 
     }
 
@@ -56,7 +88,7 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Menu.SetActive(true);
         Time.timeScale = 0f;
-        GameisPaused = true;
+        gameisPaused = true;
     }
 
     public void Restart()
@@ -64,7 +96,7 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Menu.SetActive(false);
         Time.timeScale = 1f;
-        GameisPaused = false;
+        gameisPaused = false;
     }
 
     public void Level()
@@ -81,11 +113,12 @@ public class PauseMenu : MonoBehaviour
     {
         SceneManager.LoadScene("MAINJ 1");
         Time.timeScale = 1f;
-        GameisPaused = false;
+        gameisPaused = false;
     }
 
     public void EndGame()
     {
+        Debug.Log("end game");
         Application.Quit();
     }
 
@@ -99,9 +132,27 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("MAINJ 2");
     }
 
-    public void SetVolume(float volume)
+    public void SetResolution(int resolutionIndex)
     {
-        audioMixer.SetFloat("volume",volume);
+        Resolution resolution = resolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+
+    public void SetQuality(int qualityIndex)
+    {
+        QualitySettings.SetQualityLevel(qualityIndex);
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        musicMixer.SetFloat("musicVolume", volume);
+        
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        sfxMixer.SetFloat("sfxVolume", volume);
+        
     }
 }
 
