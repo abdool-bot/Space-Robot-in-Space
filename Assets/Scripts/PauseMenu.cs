@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
+using UnityEngine.Serialization;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -11,8 +12,10 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private TMP_Dropdown resolutionDropdown;
     [SerializeField] private AudioMixer musicMixer;
     [SerializeField] private AudioMixer sfxMixer;
+    [SerializeField] private GameObject optionsmenu;
+    [SerializeField] private GameObject leaderboard;
+    [SerializeField] private GameObject levelmenu;
     
-    public GameObject optionsmenu;
     private static bool gameisPaused = false;
     private Resolution[] resolutions;
 
@@ -43,8 +46,7 @@ public class PauseMenu : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
-
-        optionsmenu = this.transform.Find("OptionsMenu").gameObject;
+        
     }
 
     // Update is called once per frame
@@ -52,7 +54,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (this.tag != "MainMenu")
         {
-            if (!optionsmenu.activeSelf)
+            if (!optionsmenu.activeSelf || !leaderboard.activeSelf || !levelmenu.activeSelf)
             {
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
@@ -78,6 +80,8 @@ public class PauseMenu : MonoBehaviour
     {
         Menu.SetActive(false);
         optionsmenu.SetActive(false);
+        leaderboard.SetActive(false);
+        levelmenu.SetActive(false);
         Time.timeScale = 1f;
         gameisPaused = false;
         Cursor.lockState = CursorLockMode.Locked; 
