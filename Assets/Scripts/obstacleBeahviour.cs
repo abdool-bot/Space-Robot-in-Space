@@ -11,10 +11,14 @@ public class obstacleBeahviour : MonoBehaviour
     private float max,min;
 
     public float maxPlatR;
-    public float minPlatR,minPlatL;
+    [SerializeField] private float minPlatR,minPlatL;
+    [SerializeField] private GameObject flingerPlatform = null;
+
+    private bool isCoroutineRunning;
 
     private void Start()
     {
+        isCoroutineRunning = false;
         max = 8;
         min = 0;
     }
@@ -42,7 +46,38 @@ public class obstacleBeahviour : MonoBehaviour
             case "rightplatformer":
                 transform.localPosition = new Vector3(transform.localPosition.x, Mathf.PingPong(Time.time*platSpeed,maxPlatR-minPlatR)+minPlatR, transform.localPosition.z);
                 break;
+            case "flinger":
+                if (isCoroutineRunning || flingerPlatform == null) break;
+                flingerPlatform.tag = "Activator";
+                StartCoroutine(Fling());
+                break;
 
         }
+    }
+
+    private IEnumerator Fling()
+    {
+        isCoroutineRunning = true;
+
+        while (transform.localEulerAngles.z < 45)
+        {
+            transform.Rotate(new Vector3(0, 0, rotationValue));
+            yield return new WaitForSeconds(0.005f);
+        }
+
+        yield return new WaitForSeconds(0.5f);
+        flingerPlatform.tag = "Untagged";
+        
+        while (transform.localEulerAngles.z > 0.05f)
+        {
+            transform.Rotate(new Vector3(0, 0, -rotationValue/10f));
+            Debug.Log(transform.localEulerAngles.z + " | "+transform.eulerAngles.z);
+            yield return new WaitForSeconds(0.05f);
+        }
+        yield return new WaitForSeconds(1f);
+
+        isCoroutineRunning = false;
+        
+        yield return null;
     }
 }

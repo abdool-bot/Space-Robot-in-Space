@@ -57,7 +57,7 @@ public class RagdollOnOff : MonoBehaviour
             lockOnPlayer();
 
             foreach(Rigidbody rigid in limbsRigidbody){
-                rigid.AddForce((-playerRig.transform.position - smasherTransform.transform.position) * 5, ForceMode.VelocityChange);
+                rigid.AddForce((-playerRig.transform.position - activator.transform.position) * 5, ForceMode.VelocityChange);
             }
         }
     }
