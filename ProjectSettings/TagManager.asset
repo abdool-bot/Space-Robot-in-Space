@@ -16,6 +16,7 @@ TagManager:
   - volslider
   - Activator
   - LAZORS
+  - flinger
   layers:
   - Default
   - TransparentFX
