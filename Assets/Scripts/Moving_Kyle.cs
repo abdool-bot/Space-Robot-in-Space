@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class Moving_Kyle : MonoBehaviour
 {
     // Variables to assign for following camera
+    [Header("Variables to assign for following camera")]
     [SerializeField]
     private CharacterController cc;
     [SerializeField]
@@ -13,21 +14,32 @@ public class Moving_Kyle : MonoBehaviour
     private GameObject cameraRotation;
 
     // General variables for movement
+    [Header("Movement variables")]
     [SerializeField]
     private float movementSpeed = 8f;
     [SerializeField]
     private float gravity = -9.81f;
     [SerializeField]
     private float jumpHeight = 2.5f;
+
+    [Header("")] 
+    [SerializeField] 
+    private GameObject gameManager;
     
     // Variables for jumping
     private Vector3 jumpVelocity;
     private bool isGrounded;
+    
+    // Variable to save the standing rotation while not moving
     private Quaternion rotationWhenStanding = Quaternion.identity;
+    
+    // Time taking script for finish and start
+    private TimeTaker timeTaker;
 
-    // Start is called before the first frame update
+    
     void Start()
     {
+        timeTaker = gameManager.GetComponent<TimeTaker>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -86,5 +98,20 @@ public class Moving_Kyle : MonoBehaviour
         playerModel.transform.rotation = Quaternion.Euler(1- cameraEuler.x, cameraEuler.y, cameraEuler.z);
 
         rotationWhenStanding = playerModel.transform.rotation;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (timeTaker == null) return;
+        
+        switch (other.tag)
+        {
+            case "Start":
+                timeTaker.StartPassed();
+                break;
+            case "Finish":
+                timeTaker.FinishPassed();
+                break;
+        }
     }
 }

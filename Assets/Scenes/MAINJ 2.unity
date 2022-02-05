@@ -10504,6 +10504,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: ingame UI Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7093511714496861473, guid: 0b6d6d5028de33242b12f0928305d576, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1864248242}
+    - target: {fileID: 7093511714496861473, guid: 0b6d6d5028de33242b12f0928305d576, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: UpdateLeaderboardText
+      objectReference: {fileID: 0}
+    - target: {fileID: 7093511714496861473, guid: 0b6d6d5028de33242b12f0928305d576, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: Leaderboard.Leaderboard, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7093511714496861473, guid: 0b6d6d5028de33242b12f0928305d576, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b6d6d5028de33242b12f0928305d576, type: 3}
 --- !u!114 &896160219 stripped
@@ -24720,6 +24736,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8544f35ba68e5a14fae957dc956dbad3, type: 3}
+--- !u!114 &1864248242 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4391411033104506531, guid: 948183d9cddfe904c963855bf68a3f09, type: 3}
+  m_PrefabInstance: {fileID: 2073687606}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c20baa603b9fb8242af54b4695080ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1866269131
 GameObject:
   m_ObjectHideFlags: 0
