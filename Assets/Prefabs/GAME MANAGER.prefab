@@ -59,5 +59,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c20baa603b9fb8242af54b4695080ea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textFields: []
+  textFields:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   levelNumber: 0

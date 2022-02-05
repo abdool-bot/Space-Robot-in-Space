@@ -9,7 +9,7 @@ public class TimeTaker : MonoBehaviour
     private Leaderboard.Leaderboard leaderboard;
     
     [SerializeField] private GameObject finishGame;
-    [SerializeField] private Text timeDisplay, finishText;
+    [SerializeField] private TMP_Text timeDisplay, finishText;
 
     public float HighScore { get; private set; }
 
