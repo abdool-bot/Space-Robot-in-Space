@@ -19,7 +19,6 @@ public class TimeTaker : MonoBehaviour
         
         leaderboard = this.GetComponent<Leaderboard.Leaderboard>();
         mapTime = 0;
-        HighScore = leaderboard.GetLevelHighScore();
     }
     
     private void Update()
@@ -57,6 +56,7 @@ public class TimeTaker : MonoBehaviour
         if (timerStart)
         {
             leaderboard.SaveEntry("Placeholder",mapTime);
+            HighScore = leaderboard.GetLevelHighScore();
             UpdateFinishText();
         }
         
@@ -69,16 +69,11 @@ public class TimeTaker : MonoBehaviour
 
     private void UpdateFinishText()
     {
-        finishText.text = "Your Time: " + FormatTime(mapTime) +"\nHigh Score: " + FormatTime(HighScore);
+        finishText.text = "your time: " + FormatTime(mapTime) +"\nhigh score: " + FormatTime(HighScore);
     }
 
     #endregion
 
-    public float GetMapTime()
-    {
-        return mapTime;
-    }
-    
     public static string FormatTime(float time)
     {
         var minutes=Mathf.Floor(time/60);

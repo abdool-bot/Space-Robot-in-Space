@@ -16,7 +16,7 @@ namespace Leaderboard
         private LeaderboardData lbData;
 
         // Start is called before the first frame update
-        void Start()
+        private void Awake()
         {
             fileName = "leaderboard" + levelNumber + ".sav";
             lbData = new LeaderboardData();
@@ -39,7 +39,7 @@ namespace Leaderboard
                 foreach (var lbE in lbData.lbentries)
                 {
                     textFields[0].text +=  ""+i+".\n";
-                    textFields[1].text += lbE.name.ToLower().Substring(0,15) + "\n";
+                    textFields[1].text += lbE.name.ToLower().Substring(0,Mathf.Clamp(15,0,lbE.name.Length)) + "\n";
                     textFields[2].text += TimeTaker.FormatTime(lbE.time) + "\n";
                     i++;
                 }
