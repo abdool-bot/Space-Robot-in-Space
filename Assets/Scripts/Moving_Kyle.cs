@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class Moving_Kyle : MonoBehaviour
 {
     // Variables to assign for following camera
+    [Header("Variables to assign for following camera")]
     [SerializeField]
     private CharacterController cc;
     [SerializeField]
@@ -13,6 +14,7 @@ public class Moving_Kyle : MonoBehaviour
     private GameObject cameraRotation;
 
     // General variables for movement
+    [Header("Movement variables")]
     [SerializeField]
     private float movementSpeed = 8f;
     [SerializeField]
@@ -20,18 +22,25 @@ public class Moving_Kyle : MonoBehaviour
     [SerializeField]
     private float jumpHeight = 2.5f;
 
-    private float inGameMovementSpeed;
+    [Header("")] 
+    [SerializeField] 
+    private GameObject gameManager;
     
     // Variables for jumping
     private Vector3 jumpVelocity;
     private bool isGrounded;
+    
+    // Variable to save the standing rotation while not moving
     private Quaternion rotationWhenStanding = Quaternion.identity;
+    
+    // Time taking script for finish and start
+    private TimeTaker timeTaker;
 
-    // Start is called before the first frame update
+    
     void Start()
     {
+        timeTaker = gameManager.GetComponent<TimeTaker>();
         Cursor.lockState = CursorLockMode.Locked;
-         inGameMovementSpeed = movementSpeed;
     }
 
     // Update is called once per frame
@@ -54,12 +63,12 @@ public class Moving_Kyle : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.LeftShift))
         {
-            inGameMovementSpeed = movementSpeed / 4;
+            movementSpeed = movementSpeed / 4;
         }
 
         if(Input.GetKeyUp(KeyCode.LeftShift))
         {
-            inGameMovementSpeed = movementSpeed;
+            movementSpeed = 8;
         }
 
         if(Input.GetKeyDown(KeyCode.Space) && isGrounded){
@@ -73,7 +82,7 @@ public class Moving_Kyle : MonoBehaviour
 
         // Movement
         Vector3 move = cameraRotation.transform.right * moveHortizonal + cameraRotation.transform.forward * moveVertical;
-        cc.Move(move * (inGameMovementSpeed * Time.deltaTime));
+        cc.Move(move * (movementSpeed * Time.deltaTime));
 
         // Gravity
         jumpVelocity.y += gravity * Time.deltaTime;
@@ -89,5 +98,20 @@ public class Moving_Kyle : MonoBehaviour
         playerModel.transform.rotation = Quaternion.Euler(1- cameraEuler.x, cameraEuler.y, cameraEuler.z);
 
         rotationWhenStanding = playerModel.transform.rotation;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (timeTaker == null) return;
+        
+        switch (other.tag)
+        {
+            case "Start":
+                timeTaker.StartPassed();
+                break;
+            case "Finish":
+                timeTaker.FinishPassed();
+                break;
+        }
     }
 }
