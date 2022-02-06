@@ -83,7 +83,9 @@ namespace Leaderboard
 
         public float GetLevelHighScore()
         {
-            if (lbData.lbentries == null || lbData.lbentries.Count == 0) return 0f;
+            if (lbData.lbentries == null) return 0f;
+            
+            if (lbData.lbentries.Count == 0) return 0f;
             
             SortAndLimitLeaderboard(lbData);
 

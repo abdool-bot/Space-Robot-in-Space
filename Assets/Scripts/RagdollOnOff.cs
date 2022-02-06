@@ -21,10 +21,6 @@ public class RagdollOnOff : MonoBehaviour
 
     [SerializeField]
     private Transform playerModel;
-    [SerializeField]
-    private Transform smasherTransform;
-    [SerializeField]
-    private Transform laserHall;
 
     Collider [] ragdollColliders;
     Rigidbody [] limbsRigidbody;
@@ -52,25 +48,47 @@ public class RagdollOnOff : MonoBehaviour
 
     private void OnCollisionEnter(Collision activator) {
 
-        if(activator.gameObject.tag == "Activator"){
+        if(activator.gameObject.tag == "Activator_R"){
             RagdollModeOn();
             lockOnPlayer();
+            camFreeLook.GetComponent<CinemachineCollider>().enabled = false;
 
             foreach(Rigidbody rigid in limbsRigidbody){
-                rigid.AddForce((-playerRig.transform.position - smasherTransform.transform.position) * 5, ForceMode.VelocityChange);
+                rigid.AddForce((new Vector3(0,0,30)) * 1000);
+            }
+        }
+
+        if(activator.gameObject.tag == "Activator_L"){
+            RagdollModeOn();
+            lockOnPlayer();
+            camFreeLook.GetComponent<CinemachineCollider>().enabled = false;
+
+            foreach(Rigidbody rigid in limbsRigidbody){
+                rigid.AddForce((new Vector3(0,0,-30)) * 1000);
             }
         }
     }
 
     private void OnTriggerEnter(Collider other) {
 
-        if(other.gameObject.tag == "LAZORS"){
+        if(other.gameObject.tag == "Lasers"){
             RagdollModeOn();
             lockOnPlayer();
+            camFreeLook.GetComponent<CinemachineCollider>().enabled = false;
+
+            foreach(Rigidbody rigid in limbsRigidbody){
+                rigid.AddForce((playerModel.transform.position) * 200);
         }
-        
-        foreach(Rigidbody rigid in limbsRigidbody){
-                rigid.AddForce((playerModel.transform.position - laserHall.transform.position) * 1000);
+        }
+
+        if(other.gameObject.tag == "stomper"){
+            RagdollModeOn();
+            lockOnPlayer();
+            camFreeLook.GetComponent<CinemachineCollider>().enabled = false;
+
+            foreach(Rigidbody rigid in limbsRigidbody){
+                rigid.AddForce((new Vector3(0,-30,0)) * 1000);
+        }
         }
         
     }

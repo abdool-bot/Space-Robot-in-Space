@@ -14,8 +14,9 @@ TagManager:
   - Start
   - mouseslider
   - volslider
-  - Activator
-  - LAZORS
+  - Activator_R
+  - Activator_L
+  - Lasers
   layers:
   - Default
   - TransparentFX

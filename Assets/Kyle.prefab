@@ -1315,6 +1315,7 @@ MonoBehaviour:
   movementSpeed: 8
   gravity: -9.81
   jumpHeight: 2.5
+  gameManager: {fileID: 0}
 --- !u!114 &2212424319304618427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1346,8 +1347,6 @@ MonoBehaviour:
   newLookPoint: {fileID: 2212424318746195573}
   moving_Kyle: {fileID: 2212424319304618428}
   playerModel: {fileID: 2212424319304618425}
-  smasherTransform: {fileID: 0}
-  laserHall: {fileID: 0}
 --- !u!1 &2212424319405162963
 GameObject:
   m_ObjectHideFlags: 0
@@ -2266,7 +2265,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5536123062436096700, guid: 5a853c9fe61c33e4191f2176e9d96c7b, type: 3}
+  - {fileID: 2100000, guid: 0aa851515cd3747d6b3b3e461199a2ed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
