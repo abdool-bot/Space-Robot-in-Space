@@ -22,6 +22,11 @@ public class RagdollOnOff : MonoBehaviour
     [SerializeField]
     private Transform playerModel;
 
+    [SerializeField]
+    private GameObject loseGameWithRagdoll;
+    private bool stomperSquash_L = false;
+    private bool stomperSquash_R = false;
+
     Collider [] ragdollColliders;
     Rigidbody [] limbsRigidbody;
 
@@ -43,6 +48,13 @@ public class RagdollOnOff : MonoBehaviour
         {
             RagdollModeOn();
             lockOnPlayer();
+        }
+
+        if(stomperSquash_L && stomperSquash_R){
+            loseGameWithRagdoll.SetActive(true);
+            RagdollModeOn();
+            lockOnPlayer();
+            camFreeLook.GetComponent<CinemachineCollider>().enabled = false;
         }
     }
 
@@ -66,6 +78,14 @@ public class RagdollOnOff : MonoBehaviour
             foreach(Rigidbody rigid in limbsRigidbody){
                 rigid.AddForce((new Vector3(0,0,-30)) * 1000);
             }
+        }
+
+        if(activator.gameObject.tag == "StomperSquash_L"){
+            stomperSquash_L = true;
+        }
+
+        if(activator.gameObject.tag == "StomperSquash_R"){
+            stomperSquash_R = true;
         }
     }
 
@@ -91,6 +111,17 @@ public class RagdollOnOff : MonoBehaviour
         }
         }
         
+    }
+    
+    private void OnCollisionExit(Collision other)
+    {
+        if(other.gameObject.tag == "StomperSquash_L"){
+            stomperSquash_L = false;
+        }
+
+        if(other.gameObject.tag == "StomperSquash_R"){
+            stomperSquash_R = false;
+        }
     }
     
     void getRagdollBits(){
