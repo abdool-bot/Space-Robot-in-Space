@@ -22,6 +22,8 @@ public class Moving_Kyle : MonoBehaviour
     [SerializeField]
     private float jumpHeight = 2.5f;
 
+    private float inGameMovementSpeed;
+
     [Header("")] 
     [SerializeField] 
     private GameObject gameManager;
@@ -41,6 +43,7 @@ public class Moving_Kyle : MonoBehaviour
     {
         timeTaker = gameManager.GetComponent<TimeTaker>();
         Cursor.lockState = CursorLockMode.Locked;
+        inGameMovementSpeed = movementSpeed;
     }
 
     // Update is called once per frame
@@ -63,12 +66,12 @@ public class Moving_Kyle : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.LeftShift))
         {
-            movementSpeed = movementSpeed / 4;
+            inGameMovementSpeed = movementSpeed / 4;
         }
 
         if(Input.GetKeyUp(KeyCode.LeftShift))
         {
-            movementSpeed = 8;
+            inGameMovementSpeed = movementSpeed;
         }
 
         if(Input.GetKeyDown(KeyCode.Space) && isGrounded){
@@ -82,7 +85,7 @@ public class Moving_Kyle : MonoBehaviour
 
         // Movement
         Vector3 move = cameraRotation.transform.right * moveHortizonal + cameraRotation.transform.forward * moveVertical;
-        cc.Move(move * (movementSpeed * Time.deltaTime));
+        cc.Move(move * (inGameMovementSpeed * Time.deltaTime));
 
         // Gravity
         jumpVelocity.y += gravity * Time.deltaTime;

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6495012172363560126
+--- !u!114 &-2648358038001992194
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,20 +20,21 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LASER_UPDATE
-  m_Shader: {fileID: -6465566751694194690, guid: ef9d7dd77bb86604e904ddea910a4216, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
+  m_Name: StomperGround
+  m_Shader: {fileID: -6465566751694194690, guid: 7904ee642890bff40bd2b5bb74eaf87a, type: 3}
+  m_ShaderKeywords: _SPECULAR_SETUP
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - SHADOWCASTER
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_4a6d8ef4bc13488b9e740f1785e5047a:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: f22d6d4143c5c3448a8c1d21b8f381d6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -94,9 +95,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_31d73e20693d455cb8ba7facb3cb1fb3: 1
-    - Vector1_3bbcd56914564a91b8e93bf6c53169eb: 1
+    - Vector1_384ab5778381451bbad1d478667639fc: 0
+    - Vector1_3bbcd56914564a91b8e93bf6c53169eb: 0.1
     - _AlphaClip: 0
-    - _Blend: 0
+    - _Blend: 2
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -104,7 +106,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DstBlend: 0
+    - _DstBlend: 1
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -114,20 +116,20 @@ Material:
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0.5
+    - _Smoothness: 0.494
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SrcBlend: 1
-    - _Surface: 0
-    - _WorkflowMode: 1
-    - _ZWrite: 1
+    - _SrcBlend: 5
+    - _Surface: 1
+    - _WorkflowMode: 0
+    - _ZWrite: 0
     m_Colors:
-    - Color_6ab516159d9c4d3eb8d7af76a23e413b: {r: 2.297397, g: 1.315372, b: 1.315372, a: 0}
-    - Color_6ed20143c1424f9eb7ab87cb8f66f13d: {r: 13.92941, g: 5.898039, b: 0, a: 0}
-    - Color_b0108eb6f9fe4e709e3ddf38055b911e: {r: 7.464264, g: 0, b: 0, a: 0}
-    - Vector2_44814b2f68084ea8b335973b534450c4: {r: 1, g: 20, b: 0, a: 0}
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - Color_6ab516159d9c4d3eb8d7af76a23e413b: {r: 2.428178, g: 0.03436095, b: 0.03436095, a: 0}
+    - Color_6ed20143c1424f9eb7ab87cb8f66f13d: {r: 10.701962, g: 8.6377945, b: 7.117815, a: 0}
+    - Color_b0108eb6f9fe4e709e3ddf38055b911e: {r: 0.9245283, g: 0.47807273, b: 0.46662515, a: 1}
+    - Vector2_44814b2f68084ea8b335973b534450c4: {r: 1, g: 1, b: 0, a: 0}
+    - _BaseColor: {r: 1, g: 0, b: 0, a: 0.11764706}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _SpecColor: {r: 1, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
