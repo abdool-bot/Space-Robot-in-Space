@@ -77,7 +77,7 @@ public class RagdollOnOff : MonoBehaviour
             camFreeLook.GetComponent<CinemachineCollider>().enabled = false;
 
             foreach(Rigidbody rigid in limbsRigidbody){
-                rigid.AddForce((playerModel.transform.position) * 200);
+                rigid.AddForce((playerModel.transform.position) * 10);
         }
         }
 
