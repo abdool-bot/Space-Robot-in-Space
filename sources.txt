@@ -1,0 +1,3 @@
+SETTINGS MENU in Unity, Brackeys, https://www.youtube.com/watch?v=YOaYQrN1oYQ, 06.12.2017, zuletzt besucht 08.02.2022
+Unity Scripting-API: PlayerPrefs, Unity Technologies, https://docs.unity3d.com/ScriptReference/PlayerPrefs.html, 07.02.2022, zuletzt besucht 08.02.2022
+How to use Cameras in Unity: Cinemachine Virtual Cameras Explained, iHeartGameDev, https://www.youtube.com/watch?v=asruvbmUyw8, 02.01.2022, zuletzt besucht 08.02.2022
