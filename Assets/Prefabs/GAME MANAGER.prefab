@@ -47,6 +47,7 @@ MonoBehaviour:
   finishGame: {fileID: 0}
   timeDisplay: {fileID: 0}
   finishText: {fileID: 0}
+  playerNameAsset: {fileID: 11400000, guid: f506689a1fb95ef4da95bd7763af4671, type: 2}
 --- !u!114 &4391411033104506531
 MonoBehaviour:
   m_ObjectHideFlags: 0

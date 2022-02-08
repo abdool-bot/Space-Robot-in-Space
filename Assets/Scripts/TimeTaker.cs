@@ -1,3 +1,4 @@
+using ScriptableObjects;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,16 +8,18 @@ public class TimeTaker : MonoBehaviour
     private float mapTime = 0;
     private bool timerStart = false;
     private Leaderboard.Leaderboard leaderboard;
+    private string playerName = "placeholder";
     
     [SerializeField] private GameObject finishGame;
     [SerializeField] private TMP_Text timeDisplay, finishText;
+    [SerializeField] private PlayerName playerNameAsset;
 
     public float HighScore { get; private set; }
 
 
     private void Start()
     {
-        
+        if(!string.IsNullOrEmpty(playerNameAsset.Name)) playerName = playerNameAsset.Name;
         leaderboard = this.GetComponent<Leaderboard.Leaderboard>();
         mapTime = 0;
     }
@@ -55,7 +58,7 @@ public class TimeTaker : MonoBehaviour
     {
         if (timerStart)
         {
-            leaderboard.SaveEntry("Placeholder",mapTime);
+            leaderboard.SaveEntry(playerName,mapTime);
             HighScore = leaderboard.GetLevelHighScore();
             UpdateFinishText();
         }

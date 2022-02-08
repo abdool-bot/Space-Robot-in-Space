@@ -91,5 +91,17 @@ namespace Leaderboard
 
             return lbData.lbentries[0].time;
         }
+
+        public void SetLevelNumber(int lvl)
+        {
+            this.levelNumber = lvl;
+            
+            fileName = "leaderboard" + this.levelNumber + ".sav";
+            lbData = new LeaderboardData();
+            if (FileManager.FileExists(fileName))
+            {
+                lbData.FromJSON(FileManager.LoadFromFile(fileName));
+            }
+        }
     }
 }
