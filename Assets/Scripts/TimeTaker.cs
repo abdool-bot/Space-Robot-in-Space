@@ -19,6 +19,7 @@ public class TimeTaker : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1f;
         if(!string.IsNullOrEmpty(playerNameAsset.Name)) playerName = playerNameAsset.Name;
         leaderboard = this.GetComponent<Leaderboard.Leaderboard>();
         mapTime = 0;

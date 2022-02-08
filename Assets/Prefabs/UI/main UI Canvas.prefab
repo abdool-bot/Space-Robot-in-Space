@@ -1429,10 +1429,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 2696275896135050890}
   m_HandleRect: {fileID: 2696275894888357307}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 30
+  m_MinValue: 5
+  m_MaxValue: 1000
   m_WholeNumbers: 0
-  m_Value: 20
+  m_Value: 300
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -5883,7 +5883,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2696275895325778371}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
-        m_MethodName: SetQuality
+        m_MethodName: SetResolution
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
