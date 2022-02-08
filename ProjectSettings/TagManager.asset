@@ -19,6 +19,9 @@ TagManager:
   - Lasers
   - StomperSquash_L
   - StomperSquash_R
+  - Activator
+  - LAZORS
+  - rec
   layers:
   - Default
   - TransparentFX

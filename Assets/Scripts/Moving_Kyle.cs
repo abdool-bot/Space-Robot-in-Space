@@ -41,7 +41,7 @@ public class Moving_Kyle : MonoBehaviour
     
     void Start()
     {
-        timeTaker = gameManager.GetComponent<TimeTaker>();
+        if(gameManager != null) timeTaker = gameManager.GetComponent<TimeTaker>();
         Cursor.lockState = CursorLockMode.Locked;
         inGameMovementSpeed = movementSpeed;
     }
